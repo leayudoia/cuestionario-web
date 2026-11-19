@@ -41,6 +41,9 @@ p { margin: 0 0 .9em; }
 .cabecera-txt { flex: 1; min-width: 0; }
 .cabecera-txt b { display: block; }
 .cabecera-txt span { font-size: .85rem; opacity: .8; }
+/* Con logo: el logo ocupa el sitio del nombre y la frase queda debajo */
+.cabecera-txt.con-logo { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
+.cabecera-txt.con-logo img { display: block; height: 40px; max-width: 190px; }
 .guardado { font-size: .78rem; opacity: .85; white-space: nowrap; }
 .marco { max-width: 1180px; margin: 0 auto; padding: 20px; display: grid; grid-template-columns: 250px 1fr; gap: 24px; align-items: start; }
 .lateral { position: sticky; top: 16px; background: var(--papel); border: 1px solid var(--linea); border-radius: var(--radio); padding: 10px; }
@@ -811,7 +814,9 @@ var AJUSTES = /*__AJUSTES__*/{"textos":{"titulo":"Cuéntanos cómo trabajáis","
 
   /* ---------- pintar ---------- */
   function pintarCabecera() {
-    document.getElementById('cabecera').innerHTML = (MARCA.logo_data ? '<img src="' + MARCA.logo_data + '" alt="">' : '') + '<div class="cabecera-txt"><b>' + esc(MARCA.nombre) + '</b><span>' + esc(MARCA.eslogan || 'Cuestionario de procesos') + '</span></div><span class="guardado" id="guardado"></span>';
+    document.getElementById('cabecera').innerHTML = (MARCA.logo_data
+      ? '<div class="cabecera-txt con-logo"><img src="' + MARCA.logo_data + '" alt="' + esc(MARCA.nombre) + '"><span>' + esc(MARCA.eslogan || 'Cuestionario de procesos') + '</span></div>'
+      : '<div class="cabecera-txt"><b>' + esc(MARCA.nombre) + '</b><span>' + esc(MARCA.eslogan || 'Cuestionario de procesos') + '</span></div>') + '<span class="guardado" id="guardado"></span>';
     document.documentElement.style.setProperty('--marca', MARCA.color_principal || '#1f3a5f');
     document.documentElement.style.setProperty('--acento', MARCA.color_acento || '#e4572e');
     document.title = 'Cuestionario de procesos · ' + (MARCA.nombre || '');
